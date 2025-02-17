@@ -1,27 +1,46 @@
-export default function HeroSection() {
-    return(
-        <>
-            <section className="flex justify-center items-center w-screen mt-16 ">
-                <div>
-                    <h1 className="text-4xl md:text-5xl font-extrabold text-red-600 text-center leading-tight">
-                        Experience the thrill of Formula 1 – the pinnacle of MOTORSPORT!
+import {cn} from "@/utils";
+import Link from "next/link";
+import Champion from "./Champion";
+import ChampionStatistics from "./ChampionStatistics";
+
+interface Props {
+    className?: string;
+}
+
+export default function HeroSection({className}: Readonly<Props>) {
+    return (
+        <section className={cn("container lg:py-12 py-4", className)}>
+            <div className="grid grid-cols-1 lg:grid-cols-5 lg:items-center gap-4 lg:gap-16">
+                <div className="lg:col-span-2 space-y-4">
+                    <h1 className="text-4xl lg:text-5xl font-bold text-light text-start leading-tight">
+                        Experience the thrill of Formula 1 <br/>
+                        The pinnacle of MOTORSPORT!
                     </h1>
-                    <p className="mt-4 text-lg md:text-xl text-gray-500 text-center max-w-2xl mx-auto">
+                    <p className=" text-lg md:text-xl text-content ">
                         Stay updated with the latest races, driver standings, and exclusive insights from the world’s
                         fastest cars and most skilled drivers.
                     </p>
-
+                    <div className="mt-2">
+                        <Link href="/Drivers"
+                              className="rounded-md border-2 p-3 border-light/80 hover:border-dark hover:bg-light hover:text-dark  ">See
+                            Drivers</Link>
+                    </div>
                 </div>
-                <video className="m-14 w-2/3 object-cover rounded-md"
+                <video className="w-full h-auto object-cover rounded-md lg:col-span-3"
                        autoPlay
                        loop
                        muted
                        playsInline
                 >
-                    <source src="/formula-cover.mp4" type="video/mp4"/>
+                    <source src="/videos/formula-cover.mp4" type="video/mp4"/>
                     Your browser does not support the video tag.
                 </video>
-            </section>
-        </>
+            </div>
+            <span className="block h-px border border-light/20 w-[calc(100%-64px)] mx-auto my-10"/>
+
+            <Champion/>
+            <span className={`block h-px border border-light/20 w-[calc(100%-64px)] mx-auto my-10`}/>
+            <ChampionStatistics/>
+        </section>
     );
 }
