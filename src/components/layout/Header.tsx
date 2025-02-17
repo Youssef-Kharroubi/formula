@@ -2,13 +2,12 @@ import Link from "next/link";
 
 export default function Header() {
     return (
-        <header className="bg-gray-800 text-white p-4">
-            <nav className="flex lg:flex-grow justify-between">
-                <h1 className="font-bold text-xl pt-2 ">
-                    <Link href="/src/public">Formula</Link>
-                </h1>
+        <header className="bg-dark text-light border-b border-b-light/20">
+            <nav className="flex items-center justify-between container py-3">
+                    <Link className="font-bold text-xl p-4 -m-3" href="/">Formula</Link>
+
                 <ul className="font-bold text-md">
-                    <li className="bg-black p-2 rounded-md hover:bg-gray-700">
+                    <li className="bg-light/80 p-2 rounded-md hover:bg-light transition-colors ease-in-out duration-200 text-dark ">
                         <Link href="/Drivers">Drivers</Link>
                     </li>
                 </ul>

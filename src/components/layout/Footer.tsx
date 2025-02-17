@@ -1,8 +1,9 @@
 export default function Footer() {
+    const currentYear = new Date().getFullYear();
     return (
-        <footer className="bg-gray-800 text-white p-4 mt-16 w-full">
-            <div className="max-w-7xl mx-auto text-center">
-                <p>&copy; {new Date().getFullYear()} Formula. All rights reserved.</p>
+        <footer className="bg-dark text-light/90 p-4 mt-16 w-full border-t border-light/20">
+            <div className="container text-center">
+                <p>&copy; {currentYear} Formula. All rights reserved.</p>
             </div>
         </footer>
     );
