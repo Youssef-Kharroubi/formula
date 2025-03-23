@@ -14,7 +14,8 @@ export default {
         dark: "#0a0a0a",
         light: "#f7f8f8",
         content: "#8a8f98",
-        gold: "#FFD700"
+        gold: "#FFD700",
+        card: "#0f1011"
       },
       keyframes: {
         fadeSlideIn: {
