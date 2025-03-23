@@ -3,7 +3,7 @@ import Image from "next/image";
 export default function ConstructorStandings() {
     return (
         <section className="ml-10">
-            <h3 className="text-3xl font-bold text-gold text-center m-10">
+            <h3 className="text-3xl font-bold text-light text-center m-10">
                 Top Three In The Constructors Standings
             </h3>
             <div className="parent grid grid-cols-3 grid-rows-2 gap-0 justify-items-center">
