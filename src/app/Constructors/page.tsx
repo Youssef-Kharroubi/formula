@@ -30,8 +30,8 @@ export default function Page(){
             </h1>
             <div className="grid grid-cols-3">
 
-            <span className="">
-                <div className="grid lg:gap-3 gap-2 ">
+            <span>
+                <div className="grid lg:gap-3 gap-2 mt-3 ">
                  {
                      Constructors.map((Constructor, index) => (
                          <ConstructorCard Constructor={Constructor} key={index}/>
@@ -41,7 +41,7 @@ export default function Page(){
               </div>
 
             </span>
-                <div className="col-span-2"><ConstructorStandings/></div>
+                <div className="col-span-2 self-center"><ConstructorStandings/></div>
             </div>
         </section>
     )
