@@ -14,7 +14,7 @@ export interface RacesDTO{
 }
 let cachedRaces: { upcomingRaces: RacesDTO[]; playedRaces: RacesDTO[] } | null = null
 
-const RACES_API_ENDPOINT = "http://localhost:3000/api/upcomingRaces";
+const RACES_API_ENDPOINT = "http://localhost:3000/api/races";
 export default function Races(){
 
     const [playedRaces,setPlayedRaces] = useState<RacesDTO[]>([]);
