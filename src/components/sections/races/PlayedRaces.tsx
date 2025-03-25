@@ -25,7 +25,7 @@ export default function PlayedRaces({playedRaces}: Readonly<props>) {
     },[nextRace])
     return (
       <section className="my-4">
-          <h3 className="text-2xl text-light font-bold mt-3">Races Already Played</h3>
+          <h3 className="text-4xl text-light font-bold my-4">Races Already Played</h3>
           <div className="flex justify-evenly items-center   ">
               {
                   playedRaces.map((race,index) => (
