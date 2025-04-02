@@ -1,8 +1,6 @@
-'use client'
-import DriverCard from "../../components/ui/DriverCard";
-import Image from "next/image";
-import {useState,useEffect} from 'react';
-import DriverCardSkeleton from "@/components/ui/DriverCardSkeleton";
+import DriversStandings from "@/components/sections/drivers/DriversStandings";
+import {neon} from "@neondatabase/serverless";
+import DriversLineUp from "@/components/sections/drivers/DriversLineUp";
 
 export interface DriverDTO{
     boradcast_name: string;
@@ -17,61 +15,30 @@ export interface DriverDTO{
     meeting_key: string,
     session_key: string,
 }
-const API_ENDPOINT = 'https://api.openf1.org/v1/drivers';
+export interface DriverStandingsDTO{
+    name:string;
+    seasonpoints:string;
+}
 
-export default function Drivers() {
-    const [Drivers, setDrivers] = useState<DriverDTO[]>([]);
-    const [loading, setLoading] = useState(true);
+async function getDriversLineUp(): Promise<DriverDTO[]>{
+    const data = await fetch(process.env.DRIVERS_API_ENDPOINT as string);
+    return data.json()
+}
+async function getDriversStandings(): Promise<DriverStandingsDTO[]>{
+    const sql = neon(process.env.DATABASE_URL as string);
+    const response = await sql`SELECT name,seasonPoints from DRIVERS ORDER BY seasonPoints DESC`;
+    return response as DriverStandingsDTO[];
+}
 
-    useEffect(() => {
-        const fetchDrivers = async() => {
-        try{
-        const data = await fetch(API_ENDPOINT).then(response => response.json())
-            const driversTable = (data|| []).filter((driver:DriverDTO)=> driver.session_key == "9158");
-            setDrivers(driversTable);
-        } catch(error) {
-                console.error("Error Fetching Data",error);
-            }
-        finally {
-                setLoading(false);
-            }
-
-    };
-        fetchDrivers();},[]);
+export default async function Drivers() {
+    const Drivers:DriverDTO[] = await getDriversLineUp();
+    const DriversStanding:DriverStandingsDTO[] = await getDriversStandings();
 
     return (
-        <section className="container">
-            <h1 className="text-4xl md:text-6xl font-extrabold text-red-600 text-center leading-tight m-10">
-                F1 Drivers LineUp
-                for 2025!</h1>
-            <div className="flex justify-center items-center mt-5 ">
-                <Image src="/images/lineup2025.jpg"
-                       alt="carousel"
-                       width={700}
-                       height={300}
-                       priority
-                       loading="eager"
-                       className="object-cover w-2/3 h-auto rounded-md "></Image>
-            </div>
-            <span className="block h-px border border-b-light/20 w-[calc(100%-64px)] mx-auto my-12"/>
-            {loading || Drivers.length === 0 ? (
-                <div className="grid lg:grid-cols-4 grid-cols-1 lg:gap-3 gap-2">
-                    {Array.from({ length: 20 }).map((_, index) => (
-                        <DriverCardSkeleton key={index} />
-                    ))}
-                </div>
-            ) : (
-                Drivers.length > 0 && (
-                    <div className="grid lg:grid-cols-4 grid-cols-1 lg:gap-3 gap-2">
-                        {Drivers.map((driver, index) => (
-                            <DriverCard key={index} driver={driver} />
-                        ))}
-                    </div>
-                )
-            )}
-
-        </section>
-
+        <>
+        <DriversLineUp drivers={Drivers}/>
+        <DriversStandings data={DriversStanding}/>
+        </>
 
     );
 }
