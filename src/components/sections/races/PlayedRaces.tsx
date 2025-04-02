@@ -6,7 +6,6 @@ interface props{
     playedRaces: RacesDTO[];
 }
 
-const NEXT_RACE_API_ENDPOINT = "https://api.openf1.org/v1/meetings?year=2025";
 
 export default function PlayedRaces({playedRaces}: Readonly<props>) {
     const [nextRace,setNextRace] = useState<RacesDTO>();
@@ -14,7 +13,7 @@ export default function PlayedRaces({playedRaces}: Readonly<props>) {
     useEffect(()=>{
         const fetchNextRaceDate = async() => {
             try{
-                const data = await fetch(NEXT_RACE_API_ENDPOINT).then(response=> response.json())
+                const data = await fetch(process.env.NEXT_RACE_API_ENDPOINT as string).then(response=> response.json())
 
                 setNextRace(data.pop())
             }catch(error){
